@@ -27,6 +27,10 @@ public class FileWrap {
 		if (pos > 0) {
 			fname = fname.substring(0, pos + 1);
 		}
+		
+		if(fname.length() < 1)
+			return "/";
+		
 		return fname;
 
 	}

@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -13,6 +14,7 @@ import javax.swing.JTree;
 import javax.swing.ToolTipManager;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  * A főosztály. Felépíti a grafikus felületet.
@@ -30,7 +32,7 @@ public class TreeTest implements ActionListener {
 		JFrame mainFrame = new JFrame("JTree");
 		mainFrame.setMinimumSize(new Dimension(200, 350));
 		mainFrame.setLayout(new BorderLayout());
-		
+
 		fileTree = new JTree();
 		FileTreeModel model = new FileTreeModel();
 		FileTreeRenderer renderer = new FileTreeRenderer();
@@ -41,9 +43,17 @@ public class TreeTest implements ActionListener {
 		fileTree.setCellRenderer(renderer);
 
 		comboBox = new JComboBox<FileWrap>();
+
+		File[] driveList = FileSystemView.getFileSystemView().getRoots();
+		for (int i = 0; i < driveList.length; i++) {
+			FileWrap drive = new FileWrap("");
+			drive.value = driveList[i];
+			comboBox.addItem(drive);
+		}
+
 		comboBox.addActionListener(new TreeTest());
-		mainFrame.add(comboBox, BorderLayout.SOUTH);
-		
+		mainFrame.add(comboBox, BorderLayout.NORTH);
+
 		JScrollPane jsp = new JScrollPane(fileTree);
 		mainFrame.add(jsp);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,11 +61,10 @@ public class TreeTest implements ActionListener {
 		mainFrame.setVisible(true);
 	}
 
-
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }
