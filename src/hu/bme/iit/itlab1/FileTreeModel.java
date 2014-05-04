@@ -4,9 +4,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 /**
@@ -33,17 +35,11 @@ public class FileTreeModel implements TreeModel {
 		listeners = new ArrayList<TreeModelListener>();
 		root = new FileWrap(File.listRoots()[0].getPath());
 		File[] roots = File.listRoots();
-		for(int i=0;i<roots.length;i++)
-		    System.out.println("Root["+i+"]:" + roots[i]);
 	}
 
 	@Override
 	public Object getRoot() {
 		return root;
-	}
-
-	public void setRoot(FileWrap newRoot) {
-		root = newRoot;
 	}
 
 	@Override
@@ -84,8 +80,11 @@ public class FileTreeModel implements TreeModel {
 
 	@Override
 	public void valueForPathChanged(TreePath path, Object newValue) {
-		// TODO Auto-generated method stub
-
+		root = (FileWrap) newValue;
+		TreeModelEvent event = new TreeModelEvent(this, path);
+		for (TreeModelListener listener : listeners) {
+			listener.treeStructureChanged(event);
+		}
 	}
 
 	@Override
@@ -110,11 +109,6 @@ public class FileTreeModel implements TreeModel {
 	@Override
 	public void removeTreeModelListener(TreeModelListener l) {
 		listeners.remove(l);
-	}
-
-	public void insert(double d) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

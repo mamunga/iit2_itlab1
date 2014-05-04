@@ -2,7 +2,6 @@ package hu.bme.iit.itlab1;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -12,9 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.ToolTipManager;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.filechooser.FileSystemView;
+import javax.swing.event.TreeModelEvent;
+import javax.swing.tree.TreePath;
 
 /**
  * A főosztály. Felépíti a grafikus felületet.
@@ -65,8 +63,10 @@ public class TreeTest implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		if(arg0.getSource() instanceof JComboBox<?>){
-			JComboBox box = (JComboBox<?>)arg0.getSource();
-			((FileTreeModel) fileTree.getModel()).setRoot((FileWrap) box.getSelectedItem());
+			JComboBox<?> box = (JComboBox<?>)arg0.getSource();
+			TreePath path = new TreePath(fileTree.getModel().getRoot());
+			fileTree.getModel().valueForPathChanged(path, (FileWrap) box.getSelectedItem());
+			
 		}
 
 	}
