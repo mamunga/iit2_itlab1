@@ -50,7 +50,22 @@ public class FileTreeModel implements TreeModel {
 			File[] list = nodeParent.value.listFiles();
 			FileWrap child = new FileWrap("");
 			Arrays.sort(list);
-			ArrayList<File> childList = new ArrayList<>(Arrays.asList(list));
+			
+			ArrayList<File> directories = new ArrayList<File>();
+			ArrayList<File> files = new ArrayList<File>();
+			
+			for(int i = 0; i < list.length; i++) {
+				if(list[i].isDirectory())
+					directories.add(list[i]);
+				else
+					files.add(list[i]);
+			}
+			
+			
+			
+			ArrayList<File> childList = new ArrayList<>();
+			childList.addAll(directories);
+			childList.addAll(files);
 			child.value = childList.get(index);
 			return child;
 		}
