@@ -28,8 +28,8 @@ public class FileWrap {
 			fname = fname.substring(0, pos + 1);
 		}
 		
-		if(fname.length() < 1)
-			return "/";
+		if(value.isDirectory() && fname.length() < 1)
+			return value.getAbsolutePath();
 		
 		return fname;
 

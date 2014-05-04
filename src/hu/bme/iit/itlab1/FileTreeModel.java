@@ -31,7 +31,10 @@ public class FileTreeModel implements TreeModel {
 
 	public FileTreeModel() {
 		listeners = new ArrayList<TreeModelListener>();
-		root = new FileWrap(File.listRoots()[0].getAbsolutePath());
+		root = new FileWrap(File.listRoots()[0].getPath());
+		File[] roots = File.listRoots();
+		for(int i=0;i<roots.length;i++)
+		    System.out.println("Root["+i+"]:" + roots[i]);
 	}
 
 	@Override
