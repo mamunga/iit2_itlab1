@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.ToolTipManager;
 
 /**
  * A főosztály. Felépíti a grafikus felületet.
@@ -25,9 +26,11 @@ public class TreeTest implements ActionListener {
 		FileTreeModel model = new FileTreeModel();
 		FileTreeRenderer renderer = new FileTreeRenderer();
 
-		// fileTree.setModel(model);
-		// fileTree.addActionListener(this);
+		fileTree.setModel(model);
 
+		ToolTipManager.sharedInstance().registerComponent(fileTree); 
+		fileTree.setCellRenderer(renderer);
+		
 		JScrollPane jsp = new JScrollPane(fileTree);
 		mainFrame.add(jsp);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

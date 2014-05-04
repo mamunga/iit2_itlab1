@@ -31,8 +31,7 @@ public class FileTreeModel implements TreeModel {
 	public FileTreeModel() {
 		listeners = new ArrayList<TreeModelListener>();
 		root = new FileWrap(
-				(FileSystemView.getFileSystemView()).getRoots()[0].getName());
-
+				(FileSystemView.getFileSystemView()).getRoots()[0].getParent());
 	}
 
 	@Override
@@ -69,7 +68,7 @@ public class FileTreeModel implements TreeModel {
 			return false;
 		}
 		FileWrap treeNode = (FileWrap) node;
-		if (treeNode != null && treeNode.value.list().length > 0) {
+		if (treeNode != null && treeNode.value.list() != null && treeNode.value.list().length > 0) {
 			return false;
 		} else {
 			return true;

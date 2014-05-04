@@ -27,9 +27,9 @@ public class FileTreeRenderer extends DefaultTreeCellRenderer {
                         tree, value, sel,
                         expanded, leaf, row,
                         hasFocus);
-	FileTreeModel bt = (FileTreeModel)value;
-	//TODO
-	setToolTipText("("+12+")");
+//	tree.getModel().g
+    //TODO
+	setToolTipText("("+value+")");
         return this;
     }
 }
