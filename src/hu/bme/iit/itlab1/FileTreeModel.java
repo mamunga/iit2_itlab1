@@ -31,8 +31,16 @@ public class FileTreeModel implements TreeModel {
 
 	public FileTreeModel() {
 		listeners = new ArrayList<TreeModelListener>();
-		root = new FileWrap(
-				(FileSystemView.getFileSystemView()).getRoots()[0].getAbsolutePath());
+		String path = (FileSystemView.getFileSystemView()).getRoots()[0].getAbsolutePath();
+		
+		if((FileSystemView.getFileSystemView()).getRoots()[0].getName().contains("Desktop"))
+		{
+			root = new FileWrap(File.listRoots()[0].getAbsolutePath());
+		}
+		else
+		{
+			root = new FileWrap(path);
+		}
 	}
 
 	@Override

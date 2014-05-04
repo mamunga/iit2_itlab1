@@ -27,9 +27,23 @@ public class FileTreeRenderer extends DefaultTreeCellRenderer {
                         tree, value, sel,
                         expanded, leaf, row,
                         hasFocus);
-//	tree.getModel().g
-    //TODO
-	setToolTipText("("+value+")");
+        
+        FileWrap fw = (FileWrap)value;
+        setToolTipText(getFormattedTooltip(fw.value.length()));
         return this;
+    }
+    
+    String getFormattedTooltip(long size){
+    	if(size >= 1000000)
+    	{
+    		return String.format("%.2f Mb", size/1000000.f);
+    	}
+    	
+    	if(size >= 1000)
+    	{
+    		return String.format("%.2f Kb", size/1000.f);
+    	}
+    	
+    	return size + " b";
     }
 }
