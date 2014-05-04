@@ -64,6 +64,10 @@ public class TreeTest implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
+		if(arg0.getSource() instanceof JComboBox<?>){
+			JComboBox box = (JComboBox<?>)arg0.getSource();
+			((FileTreeModel) fileTree.getModel()).setRoot((FileWrap) box.getSelectedItem());
+		}
 
 	}
 
