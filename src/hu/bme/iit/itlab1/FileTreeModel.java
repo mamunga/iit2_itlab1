@@ -1,5 +1,6 @@
 package hu.bme.iit.itlab1;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -31,7 +32,7 @@ public class FileTreeModel implements TreeModel {
 	public FileTreeModel() {
 		listeners = new ArrayList<TreeModelListener>();
 		root = new FileWrap(
-				(FileSystemView.getFileSystemView()).getRoots()[0].getParent());
+				(FileSystemView.getFileSystemView()).getRoots()[0].getAbsolutePath());
 	}
 
 	@Override
@@ -44,10 +45,12 @@ public class FileTreeModel implements TreeModel {
 		FileWrap nodeParent = (FileWrap) parent;
 
 		if (nodeParent != null) {
-			String[] list = nodeParent.value.list();
+			File[] list = nodeParent.value.listFiles();
+			FileWrap child = new FileWrap("");
 			Arrays.sort(list);
-			ArrayList<String> childList = new ArrayList<>(Arrays.asList(list));
-			return childList.get(index);
+			ArrayList<File> childList = new ArrayList<>(Arrays.asList(list));
+			child.value = childList.get(index);
+			return child;
 		}
 		return null;
 	}
@@ -64,9 +67,6 @@ public class FileTreeModel implements TreeModel {
 
 	@Override
 	public boolean isLeaf(Object node) {
-		if (!(node instanceof FileWrap)) {
-			return false;
-		}
 		FileWrap treeNode = (FileWrap) node;
 		if (treeNode != null && treeNode.value.list() != null && treeNode.value.list().length > 0) {
 			return false;
