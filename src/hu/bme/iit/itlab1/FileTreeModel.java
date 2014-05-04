@@ -29,7 +29,7 @@ public class FileTreeModel implements TreeModel {
 
 	public FileTreeModel() {
 		listeners = new ArrayList<TreeModelListener>();
-		root = new FileWrap("/home/mamunga");
+		root = new FileWrap(System.getProperty("user.dir"));
 
 	}
 
