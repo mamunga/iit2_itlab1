@@ -31,23 +31,14 @@ public class FileTreeModel implements TreeModel {
 
 	public FileTreeModel() {
 		listeners = new ArrayList<TreeModelListener>();
-		String path = (FileSystemView.getFileSystemView()).getRoots()[0].getAbsolutePath();
-		
-		if((FileSystemView.getFileSystemView()).getRoots()[0].getName().contains("Desktop"))
-		{
-			root = new FileWrap(File.listRoots()[0].getAbsolutePath());
-		}
-		else
-		{
-			root = new FileWrap(path);
-		}
+		root = new FileWrap(File.listRoots()[0].getAbsolutePath());
 	}
 
 	@Override
 	public Object getRoot() {
 		return root;
 	}
-	
+
 	public void setRoot(FileWrap newRoot) {
 		root = newRoot;
 	}
@@ -80,7 +71,8 @@ public class FileTreeModel implements TreeModel {
 	@Override
 	public boolean isLeaf(Object node) {
 		FileWrap treeNode = (FileWrap) node;
-		if (treeNode != null && treeNode.value.list() != null && treeNode.value.list().length > 0) {
+		if (treeNode != null && treeNode.value.list() != null
+				&& treeNode.value.list().length > 0) {
 			return false;
 		} else {
 			return true;

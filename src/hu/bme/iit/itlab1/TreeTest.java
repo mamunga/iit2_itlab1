@@ -44,7 +44,7 @@ public class TreeTest implements ActionListener {
 
 		comboBox = new JComboBox<FileWrap>();
 
-		File[] driveList = FileSystemView.getFileSystemView().getRoots();
+		File[] driveList = File.listRoots();
 		for (int i = 0; i < driveList.length; i++) {
 			FileWrap drive = new FileWrap("");
 			drive.value = driveList[i];
