@@ -14,31 +14,31 @@ import javax.swing.JTree;
  * @author mamunga
  * 
  */
-public class TreeTest implements ActionListener{
+public class TreeTest implements ActionListener {
 
 	public static void main(String[] args) {
-		//setup frame
+		// setup frame
 		JFrame mainFrame = new JFrame("JTree");
 		mainFrame.setMinimumSize(new Dimension(180, 300));
-		
+
 		JTree fileTree = new JTree();
 		FileTreeModel model = new FileTreeModel();
 		FileTreeRenderer renderer = new FileTreeRenderer();
-		
-		//fileTree.setModel(model);
-		//fileTree.addActionListener(this);
-		
-		
+
+		// fileTree.setModel(model);
+		// fileTree.addActionListener(this);
+
 		JScrollPane jsp = new JScrollPane(fileTree);
 		mainFrame.add(jsp);
-		
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		mainFrame.setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.event.TreeModelListener;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
@@ -29,7 +30,8 @@ public class FileTreeModel implements TreeModel {
 
 	public FileTreeModel() {
 		listeners = new ArrayList<TreeModelListener>();
-		root = new FileWrap(System.getProperty("user.dir"));
+		root = new FileWrap(
+				(FileSystemView.getFileSystemView()).getRoots()[0].getName());
 
 	}
 
@@ -63,10 +65,9 @@ public class FileTreeModel implements TreeModel {
 
 	@Override
 	public boolean isLeaf(Object node) {
-		if (node instanceof FileWrap) {
-			System.out.println(node.getClass());
-		} else
+		if (!(node instanceof FileWrap)) {
 			return false;
+		}
 		FileWrap treeNode = (FileWrap) node;
 		if (treeNode != null && treeNode.value.list().length > 0) {
 			return false;
