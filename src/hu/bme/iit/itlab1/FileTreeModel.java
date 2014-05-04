@@ -1,5 +1,12 @@
 package hu.bme.iit.itlab1;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.swing.event.TreeModelListener;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
+
 /**
  * A JTree modellje, a TreeModel interfészt valósítja meg. Képesnek kell lennie
  * arra, hogy a fájlrendszer gyökérobjektumát megváltoztathassuk (setRoot
@@ -15,6 +22,92 @@ package hu.bme.iit.itlab1;
  * @author mamunga
  */
 
-public class FileTreeModel {
+public class FileTreeModel implements TreeModel {
+
+	private FileWrap root;
+	ArrayList<TreeModelListener> listeners;
+
+	public FileTreeModel() {
+		listeners = new ArrayList<TreeModelListener>();
+		root = new FileWrap("/home/mamunga");
+
+	}
+
+	@Override
+	public Object getRoot() {
+		return root;
+	}
+
+	@Override
+	public Object getChild(Object parent, int index) {
+		FileWrap nodeParent = (FileWrap) parent;
+
+		if (nodeParent != null) {
+			String[] list = nodeParent.value.list();
+			Arrays.sort(list);
+			ArrayList<String> childList = new ArrayList<>(Arrays.asList(list));
+			return childList.get(index);
+		}
+		return null;
+	}
+
+	@Override
+	public int getChildCount(Object parent) {
+		FileWrap treeModel = (FileWrap) parent;
+		if (treeModel != null && treeModel.value.isDirectory()) {
+			return treeModel.value.list().length;
+		} else {
+			return 0;
+		}
+	}
+
+	@Override
+	public boolean isLeaf(Object node) {
+		if (node instanceof FileWrap) {
+			System.out.println(node.getClass());
+		} else
+			return false;
+		FileWrap treeNode = (FileWrap) node;
+		if (treeNode != null && treeNode.value.list().length > 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	@Override
+	public void valueForPathChanged(TreePath path, Object newValue) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public int getIndexOfChild(Object parent, Object child) {
+		FileWrap nodeParent = (FileWrap) parent;
+		FileWrap nodeChild = (FileWrap) child;
+
+		if (nodeParent != null) {
+			String[] list = nodeParent.value.list();
+			Arrays.sort(list);
+			ArrayList<String> childList = new ArrayList<>(Arrays.asList(list));
+			return childList.indexOf(nodeChild);
+		}
+		return 0;
+	}
+
+	@Override
+	public void addTreeModelListener(TreeModelListener l) {
+		listeners.add(l);
+	}
+
+	@Override
+	public void removeTreeModelListener(TreeModelListener l) {
+		listeners.remove(l);
+	}
+
+	public void insert(double d) {
+		// TODO Auto-generated method stub
+
+	}
 
 }

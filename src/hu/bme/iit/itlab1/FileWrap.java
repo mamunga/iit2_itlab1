@@ -7,7 +7,7 @@ import java.io.File;
  * attribútum), és feladata, hogy a toString() metódus a tartalmazott fájl nevét
  * (előtagok nélkül) adja vissza.
  * 
- * @author mamunga
+ * @author mamunga, phazek
  */
 
 public class FileWrap {
