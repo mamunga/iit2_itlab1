@@ -41,6 +41,7 @@ public class TreeTest implements ActionListener {
 		fileTree.setCellRenderer(renderer);
 
 		comboBox = new JComboBox<FileWrap>();
+		comboBox.addActionListener(new TreeTest());
 		mainFrame.add(comboBox, BorderLayout.SOUTH);
 		
 		JScrollPane jsp = new JScrollPane(fileTree);
