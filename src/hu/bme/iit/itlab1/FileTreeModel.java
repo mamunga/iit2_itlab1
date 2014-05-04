@@ -39,6 +39,10 @@ public class FileTreeModel implements TreeModel {
 	public Object getRoot() {
 		return root;
 	}
+	
+	public void setRoot(FileWrap newRoot) {
+		root = newRoot;
+	}
 
 	@Override
 	public Object getChild(Object parent, int index) {
